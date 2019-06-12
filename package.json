@@ -1,6 +1,6 @@
 {
   "name": "@tfboys/webpack-deadcode-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Webpack plugin to detect unused files and unused exports in used files",
   "repository": "https://github.com/lakerswgq/webpack-deadcode-plugin",
   "main": "src/index.js",
