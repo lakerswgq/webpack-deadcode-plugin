@@ -5,6 +5,7 @@
   "repository": "https://github.com/lakerswgq/webpack-deadcode-plugin",
   "main": "src/index.js",
   "scripts": {
+    "publish": "npm publish --access public",
     "postversion": "npm publish",
     "postpublish": "git push origin --all; git push origin --tags"
   },
