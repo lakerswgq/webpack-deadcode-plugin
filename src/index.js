@@ -13,6 +13,7 @@ class WebpackDeadcodePlugin {
         exclude: [],
         context: compiler.context,
         failOnHint: false,
+        outputFile: 'unused.json',
         detectUnusedFiles: true,
         detectUnusedExport: true
       },

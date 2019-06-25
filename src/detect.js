@@ -1,6 +1,9 @@
 const path = require("path");
 const chalk = require("chalk");
 const fg = require("fast-glob");
+const prompts = require('prompts');
+
+const utils = require('./utils');
 
 function detectDeadCode(compilation, options) {
   const assets = getWebpackAssets(compilation);
@@ -12,7 +15,10 @@ function detectDeadCode(compilation, options) {
 
   if (options.detectUnusedFiles) {
     unusedFiles = includedFiles.filter(file => !compiledFiles[file]);
-    logUnusedFiles(unusedFiles);
+    setTimeout(() => {
+      logUnusedFiles(unusedFiles);
+      handleUnusedFiles(unusedFiles, options.outputFile);
+    }, 100);
   }
 
   if (options.detectUnusedExport) {
@@ -104,6 +110,44 @@ function convertFilesToDict(assets) {
     }, {});
 }
 
+function handleUnusedFiles(unusedFiles, outputFilePath) {
+
+  const questions = [{
+    type: 'toggle',
+    name: 'delete',
+    initial: true,
+    active: 'yes',
+    inactive: 'no',
+    message: 'delete all unused files ?'
+  }, {
+    type: 'toggle',
+    name: 'output',
+    initial: true,
+    active: 'yes',
+    inactive: 'no',
+    message: 'output path of unused files ?'
+  }];
+
+  (async () => {
+    const response = await prompts(questions);
+
+    if (response.delete === true) {
+      utils.deleteFiles(unusedFiles.slice(0, 2));
+      console.log(chalk.green(`delete ${unusedFiles.length} unused files successfully `));
+    }
+
+    if (response.output === true) {
+      utils.writeFile(outputFilePath, JSON.stringify(unusedFiles));
+      console.log(chalk.green(`output file: ${outputFilePath}`))
+    }
+
+    console.log('The End');
+
+    process.exit();
+  
+  })();
+}
+
 function logUnusedFiles(unusedFiles) {
   console.log(chalk.yellow("\n--------------------- Unused Files ---------------------"));
   if (unusedFiles.length > 0) {
@@ -112,6 +156,7 @@ function logUnusedFiles(unusedFiles) {
       chalk.yellow(`\nThere are ${unusedFiles.length} unused files (¬º-°)¬.`),
       chalk.red.bold(`\n\nPlease be careful if you want to remove them.\n`)
     );
+
   } else {
     console.log(chalk.green("\nPerfect, there is nothing to do ٩(◕‿◕｡)۶."));
   }
