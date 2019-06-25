@@ -23,6 +23,13 @@ $ yarn add -D webpack-deadcode-plugin
 
 ![output](https://i.imgur.com/3Ll49Pj.png)
 
+
+### New Feature
+
+This plugin supports delete unused files and output path of unused files to a json file, then you can easily exclude files you want to ingore.
+
+![prompt](screenshot/prompt.png)
+
 ### Usage
 
 The plugin will report unused files and unused exports into your terminal but those are not part of your webpack build process, therefore, it will not fail your build (warning you). Simple add into your webpack config as follows:
@@ -118,6 +125,10 @@ The array of patterns to look for unused files and unused export in used files. 
 #### options.exclude (default: `[]`)
 
 The array of patterns to not look at.
+
+#### options.outputFile
+
+The path of file which contains unused files' path
 
 #### options.context
 
