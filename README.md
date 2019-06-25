@@ -12,13 +12,13 @@ Webpack plugin to detect unused files and unused exports in used files
 Via npm:
 
 ```bash
-$ npm install webpack-deadcode-plugin --save-dev
+$ npm install @tfboys/webpack-deadcode-plugin --save-dev
 ```
 
 Via yarn:
 
 ```bash
-$ yarn add -D webpack-deadcode-plugin
+$ yarn add -D @tfboys/webpack-deadcode-plugin
 ```
 
 ![output](https://i.imgur.com/3Ll49Pj.png)
