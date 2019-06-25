@@ -132,7 +132,7 @@ function handleUnusedFiles(unusedFiles, outputFilePath) {
     const response = await prompts(questions);
 
     if (response.delete === true) {
-      utils.deleteFiles(unusedFiles.slice(0, 2));
+      utils.deleteFiles(unusedFiles);
       console.log(chalk.green(`delete ${unusedFiles.length} unused files successfully `));
     }
 
